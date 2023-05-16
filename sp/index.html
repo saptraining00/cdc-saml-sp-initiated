@@ -20,7 +20,7 @@
     }
     function loginWithSaml() {
       gigya.socialize.login({
-                provider: "saml-idpdemo",
+                provider: "saml-spdemo",
                 callback: function(response) {
                   loginData = response;
                   returnedObject = JSON.stringify(loginData["user"], null, 4);
