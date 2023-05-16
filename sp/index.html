@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="http://cdn.gigya.com/js/gigya.js?apiKey=3_zLkA6sAzBogcE1994qFwL9MDDb4tuWaaF3V_y-IOeFcXmSnXwaMVvlBJBcgCwyAF">
+    </script>
+    <script>
+    function logoutWithSaml() {
+      gigya.accounts.logout({forceProvidersLogout: true,
+        callback: function(response) {
+          
+          if ( response.errorCode == 0 ) {              
+            alert('You are now logged out from the SP!');
+            document.getElementById('JStext').innerHTML = "Logged Out";
+            }
+            else {
+                alert('Error :' + response.errorMessage);
+            }
+        }
+      });
+    }
+    function loginWithSaml() {
+      gigya.socialize.login({
+                provider: "saml-idpdemo",
+                callback: function(response) {
+                  loginData = response;
+                  returnedObject = JSON.stringify(loginData["user"], null, 4);
+                  document.getElementById('JStext').innerHTML = returnedObject;
+                  console.log(loginData);
+                }
+      });
+    }
+</script>
+</head>
+<body>
+<input type="button" value="Login with SAML" onclick="loginWithSaml();" />&nbsp;&nbsp;
+<input type="button" value="Logout with SAML" onclick="logoutWithSaml();" />
+<br /><br />Response:
+<div class="responseDiv" id="responseDiv">
+    <textarea id="JStext" value="" style="background-color: #EFEFEF; width: 80%; max-width: 80%; border: 3px inset grey; min-height: 300px; overflow: auto; border-radius: 7px;"></textarea>
+</div>
+</body>
+</html>
